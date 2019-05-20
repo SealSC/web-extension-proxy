@@ -1,5 +1,5 @@
 {
-  "name": "sealsc-web-extension-proxy",
+  "name": "@sealsc/web-extension-proxy",
   "version": "0.1.0",
   "description": "Web extension proxy of Seal SC web extension.",
   "main": "src/proxy.js",
