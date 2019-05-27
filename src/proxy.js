@@ -7,8 +7,6 @@ class ExtensionProxy {
     this.extension = null
   }
 
-
-
   async link(param){
     if(this.extension) {
       return await this.extension.connector.link(param)
@@ -27,7 +25,7 @@ class ExtensionProxy {
 
   async isLogin() {
     if(!this.extension) {
-      return consts.predefinedStatus.NOT_LOADED()
+      return new types.Result(null, consts.predefinedStatus.NOT_LOADED())
     }
 
     return await this.extension.checker.isLogin()
@@ -35,32 +33,6 @@ class ExtensionProxy {
 
   async isMainnet() {
     return await this.extension.checker.isMainnet()
-  }
-
-  async load (extension, extra) {
-    let typeDiff = utils.surfaceDiffOf(extension, new types.ExtensionWrapper(), 1)
-
-    if(typeDiff.length !== 1) {
-      return new types.Result(null, consts.predefinedStatus.BAD_PARAM(extension))
-    }
-    let checkInstall = await extension.checker.installed()
-    if(!checkInstall.data) {
-      this.status = checkInstall
-      return new types.Result(this, consts.predefinedStatus.NO_EXTENSION(extension))
-    }
-
-    this.extension = extension
-    this.extension.load(extra)
-
-    let loginCheck = await this.isLogin()
-    if(loginCheck.data) {
-      this.link()
-      this.status = consts.predefinedStatus.SUCCESS(extension)
-    } else {
-      this.status = consts.predefinedStatus.NOT_LOGIN(extension)
-    }
-
-    return new types.Result(this, this.status)
   }
 }
 

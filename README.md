@@ -18,7 +18,7 @@ import "@sealsc/web-extension-proxy"
 ```
 
 ### Documentation
-Coming soon.
+[Seal SC web extension proxy](https://sealsc.github.io/documents/en/web-extensions/proxy/)
 
 ### License
 The source is made available under the MIT license.
