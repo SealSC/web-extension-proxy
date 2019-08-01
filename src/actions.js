@@ -24,6 +24,13 @@ async function transfer(to, amount, memo = '', extra = null) {
   }
 }
 
+async function invoke(methods, ...args) {
+  if(typeof this.extension.actions.invoke !== 'function') {
+    return consts.predefinedStatus.NOT_SUPPORT()
+  }
+  return await this.extension.actions.invoke(methods, ...args)
+}
+
 async function transferToken(wrapper, to, amount, extra) {
   return await this.extension.actions.transferToken(wrapper, to, amount, extra)
 }
@@ -39,4 +46,5 @@ export default {
   transfer,
   transferToken,
   getAccount,
+  invoke,
 }

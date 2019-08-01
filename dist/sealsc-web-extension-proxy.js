@@ -6687,48 +6687,67 @@ function _transfer() {
   return _transfer.apply(this, arguments);
 }
 
-function transferToken(_x13, _x14, _x15, _x16) {
-  return _transferToken.apply(this, arguments);
+function invoke(_x13) {
+  return _invoke.apply(this, arguments);
 }
 
-function _transferToken() {
-  _transferToken = (0, _asyncToGenerator2["default"])(
+function _invoke() {
+  _invoke = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
-  _regenerator["default"].mark(function _callee5(wrapper, to, amount, extra) {
+  _regenerator["default"].mark(function _callee5(methods) {
+    var _this$extension$actio;
+
+    var _len,
+        args,
+        _key,
+        _args5 = arguments;
+
     return _regenerator["default"].wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            _context5.next = 2;
-            return this.extension.actions.transferToken(wrapper, to, amount, extra);
+            if (!(typeof this.extension.actions.invoke !== 'function')) {
+              _context5.next = 2;
+              break;
+            }
+
+            return _context5.abrupt("return", _webExtensionProtocol.consts.predefinedStatus.NOT_SUPPORT());
 
           case 2:
+            for (_len = _args5.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+              args[_key - 1] = _args5[_key];
+            }
+
+            _context5.next = 5;
+            return (_this$extension$actio = this.extension.actions).invoke.apply(_this$extension$actio, [methods].concat(args));
+
+          case 5:
             return _context5.abrupt("return", _context5.sent);
 
-          case 3:
+          case 6:
           case "end":
             return _context5.stop();
         }
       }
     }, _callee5, this);
   }));
+  return _invoke.apply(this, arguments);
+}
+
+function transferToken(_x14, _x15, _x16, _x17) {
   return _transferToken.apply(this, arguments);
 }
 
-function getAccount() {
-  return _getAccount.apply(this, arguments);
-}
-
-function _getAccount() {
-  _getAccount = (0, _asyncToGenerator2["default"])(
+function _transferToken() {
+  _transferToken = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
-  _regenerator["default"].mark(function _callee6() {
+  _regenerator["default"].mark(function _callee6(wrapper, to, amount, extra) {
     return _regenerator["default"].wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             _context6.next = 2;
-            return this.extension.actions.getAccount();
+            return this.extension.actions.transferToken(wrapper, to, amount, extra);
 
           case 2:
             return _context6.abrupt("return", _context6.sent);
@@ -6740,6 +6759,34 @@ function _getAccount() {
       }
     }, _callee6, this);
   }));
+  return _transferToken.apply(this, arguments);
+}
+
+function getAccount() {
+  return _getAccount.apply(this, arguments);
+}
+
+function _getAccount() {
+  _getAccount = (0, _asyncToGenerator2["default"])(
+  /*#__PURE__*/
+  _regenerator["default"].mark(function _callee7() {
+    return _regenerator["default"].wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _context7.next = 2;
+            return this.extension.actions.getAccount();
+
+          case 2:
+            return _context7.abrupt("return", _context7.sent);
+
+          case 3:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7, this);
+  }));
   return _getAccount.apply(this, arguments);
 }
 
@@ -6749,7 +6796,8 @@ var _default = {
   loadContract: loadContract,
   transfer: transfer,
   transferToken: transferToken,
-  getAccount: getAccount
+  getAccount: getAccount,
+  invoke: invoke
 };
 exports["default"] = _default;
 
@@ -6871,7 +6919,7 @@ function () {
                   break;
                 }
 
-                return _context3.abrupt("return", _webExtensionProtocol.consts.predefinedStatus.NOT_LOADED());
+                return _context3.abrupt("return", new _webExtensionProtocol.types.Result(null, _webExtensionProtocol.consts.predefinedStatus.NOT_LOADED()));
 
               case 2:
                 _context3.next = 4;
@@ -6924,73 +6972,6 @@ function () {
 
       return isMainnet;
     }()
-  }, {
-    key: "load",
-    value: function () {
-      var _load = (0, _asyncToGenerator2["default"])(
-      /*#__PURE__*/
-      _regenerator["default"].mark(function _callee5(extension, extra) {
-        var typeDiff, checkInstall, loginCheck;
-        return _regenerator["default"].wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                typeDiff = _webExtensionProtocol.utils.surfaceDiffOf(extension, new _webExtensionProtocol.types.ExtensionWrapper(), 1);
-
-                if (!(typeDiff.length !== 1)) {
-                  _context5.next = 3;
-                  break;
-                }
-
-                return _context5.abrupt("return", new _webExtensionProtocol.types.Result(null, _webExtensionProtocol.consts.predefinedStatus.BAD_PARAM(extension)));
-
-              case 3:
-                _context5.next = 5;
-                return extension.checker.installed();
-
-              case 5:
-                checkInstall = _context5.sent;
-
-                if (checkInstall.data) {
-                  _context5.next = 9;
-                  break;
-                }
-
-                this.status = checkInstall;
-                return _context5.abrupt("return", new _webExtensionProtocol.types.Result(this, _webExtensionProtocol.consts.predefinedStatus.NO_EXTENSION(extension)));
-
-              case 9:
-                this.extension = extension;
-                this.extension.load(extra);
-                _context5.next = 13;
-                return this.isLogin();
-
-              case 13:
-                loginCheck = _context5.sent;
-
-                if (loginCheck.data) {
-                  this.link();
-                  this.status = _webExtensionProtocol.consts.predefinedStatus.SUCCESS(extension);
-                } else {
-                  this.status = _webExtensionProtocol.consts.predefinedStatus.NOT_LOGIN(extension);
-                }
-
-                return _context5.abrupt("return", new _webExtensionProtocol.types.Result(this, this.status));
-
-              case 16:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5, this);
-      }));
-
-      function load(_x2, _x3) {
-        return _load.apply(this, arguments);
-      }
-
-      return load;
-    }()
   }]);
   return ExtensionProxy;
 }();
@@ -7000,35 +6981,35 @@ var load =
 function () {
   var _ref = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
-  _regenerator["default"].mark(function _callee6(extension, extra) {
+  _regenerator["default"].mark(function _callee5(extension, extra) {
     var proxy, checkInstall, loginCheck;
-    return _regenerator["default"].wrap(function _callee6$(_context6) {
+    return _regenerator["default"].wrap(function _callee5$(_context5) {
       while (1) {
-        switch (_context6.prev = _context6.next) {
+        switch (_context5.prev = _context5.next) {
           case 0:
             proxy = Object.assign(new ExtensionProxy(), _actions["default"]);
-            _context6.next = 3;
+            _context5.next = 3;
             return extension.checker.installed();
 
           case 3:
-            checkInstall = _context6.sent;
+            checkInstall = _context5.sent;
 
             if (checkInstall.data) {
-              _context6.next = 7;
+              _context5.next = 7;
               break;
             }
 
             proxy.status = checkInstall;
-            return _context6.abrupt("return", new _webExtensionProtocol.types.Result(proxy, checkInstall.status));
+            return _context5.abrupt("return", new _webExtensionProtocol.types.Result(proxy, checkInstall.status));
 
           case 7:
             proxy.extension = extension;
             proxy.extension.load(extra);
-            _context6.next = 11;
+            _context5.next = 11;
             return proxy.isLogin();
 
           case 11:
-            loginCheck = _context6.sent;
+            loginCheck = _context5.sent;
 
             if (loginCheck.data) {
               proxy.link();
@@ -7037,17 +7018,17 @@ function () {
               proxy.status = _webExtensionProtocol.consts.predefinedStatus.NOT_LOGIN(extension);
             }
 
-            return _context6.abrupt("return", new _webExtensionProtocol.types.Result(proxy, proxy.status));
+            return _context5.abrupt("return", new _webExtensionProtocol.types.Result(proxy, proxy.status));
 
           case 14:
           case "end":
-            return _context6.stop();
+            return _context5.stop();
         }
       }
-    }, _callee6);
+    }, _callee5);
   }));
 
-  return function load(_x4, _x5) {
+  return function load(_x2, _x3) {
     return _ref.apply(this, arguments);
   };
 }();
