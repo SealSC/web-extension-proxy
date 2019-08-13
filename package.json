@@ -1,6 +1,6 @@
 {
   "name": "@sealsc/web-extension-proxy",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Web extension proxy of Seal SC web extension.",
   "main": "src/proxy.js",
   "repository": {
@@ -37,7 +37,7 @@
   },
   "homepage": "https://sealsc.com",
   "dependencies": {
-    "@sealsc/web-extension-protocol": "^0.1.0"
+    "@sealsc/web-extension-protocol": "^0.1.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",

@@ -39,6 +39,13 @@ async function getAccount() {
   return await this.extension.actions.getAccount()
 }
 
+async function getTransaction(txHash) {
+  return await this.extension.actions.getTransaction(txHash)
+}
+async function getTokenInfo(tokenAddress, abi) {
+  return await this.extension.actions.getTokenInfo(tokenAddress, abi)
+}
+
 export default {
   offChainCall,
   onChainCall,
@@ -46,5 +53,7 @@ export default {
   transfer,
   transferToken,
   getAccount,
+  getTransaction,
+  getTokenInfo,
   invoke,
 }
