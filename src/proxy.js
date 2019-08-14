@@ -37,26 +37,43 @@ class ExtensionProxy {
 }
 
 let load = async function (extension, extra) {
-  let proxy = Object.assign(new ExtensionProxy(), actions)
+  let orgProxy = Object.assign(new ExtensionProxy(), actions)
 
   let checkInstall = await extension.checker.installed()
   if(!checkInstall.data) {
-    proxy.status = checkInstall
-    return new types.Result(proxy, checkInstall.status)
+    orgProxy.status = checkInstall
+    return new types.Result(orgProxy, checkInstall.status)
   }
 
-  proxy.extension = extension
-  proxy.extension.load(extra)
+  orgProxy.extension = extension
+  orgProxy.extension.load(extra)
 
-  let loginCheck = await proxy.isLogin()
+  let loginCheck = await orgProxy.isLogin()
   if(loginCheck.data) {
-    proxy.link()
-    proxy.status = consts.predefinedStatus.SUCCESS(extension)
+    orgProxy.link()
+    orgProxy.status = consts.predefinedStatus.SUCCESS(extension)
   } else {
-    proxy.status = consts.predefinedStatus.NOT_LOGIN(extension)
+    orgProxy.status = consts.predefinedStatus.NOT_LOGIN(extension)
   }
+  
+  let proxy = new Proxy(orgProxy, {
+    get: function (target, name) {
+      let action = orgProxy.getAction(name)
+      if('function' === typeof action) {
+        return action
+      } else {
+        if('then' === name || undefined !== target[name]) {
+          return target[name]
+        } else {
+          return async function () {
+            return consts.predefinedStatus.NOT_SUPPORT(name)
+          }.bind(target)
+        }
+      }
+    }
+  })
 
-  return new types.Result(proxy, proxy.status)
+  return new types.Result(proxy, orgProxy.status)
 }
 
 export {

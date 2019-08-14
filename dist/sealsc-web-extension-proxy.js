@@ -6583,304 +6583,59 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var _webExtensionProtocol = require("@sealsc/web-extension-protocol");
 
-function offChainCall(_x, _x2, _x3) {
-  return _offChainCall.apply(this, arguments);
-}
-
-function _offChainCall() {
-  _offChainCall = (0, _asyncToGenerator2["default"])(
-  /*#__PURE__*/
-  _regenerator["default"].mark(function _callee(wrapper, method, param) {
-    return _regenerator["default"].wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return this.extension.contractCaller.offChainCall(wrapper, method, param);
-
-          case 2:
-            return _context.abrupt("return", _context.sent);
-
-          case 3:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, this);
-  }));
-  return _offChainCall.apply(this, arguments);
-}
-
-function onChainCall(_x4, _x5, _x6, _x7, _x8) {
-  return _onChainCall.apply(this, arguments);
-}
-
-function _onChainCall() {
-  _onChainCall = (0, _asyncToGenerator2["default"])(
-  /*#__PURE__*/
-  _regenerator["default"].mark(function _callee2(wrapper, method, param, amount, extra) {
-    return _regenerator["default"].wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return this.extension.contractCaller.onChainCall(wrapper, method, param, amount, extra);
-
-          case 2:
-            return _context2.abrupt("return", _context2.sent);
-
-          case 3:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2, this);
-  }));
-  return _onChainCall.apply(this, arguments);
-}
-
-function loadContract(_x9, _x10) {
-  return _loadContract.apply(this, arguments);
-}
-
-function _loadContract() {
-  _loadContract = (0, _asyncToGenerator2["default"])(
-  /*#__PURE__*/
-  _regenerator["default"].mark(function _callee3(abi, address) {
-    return _regenerator["default"].wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.next = 2;
-            return this.extension.actions.loadContract(abi, address);
-
-          case 2:
-            return _context3.abrupt("return", _context3.sent);
-
-          case 3:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3, this);
-  }));
-  return _loadContract.apply(this, arguments);
-}
-
-function transfer(_x11, _x12) {
-  return _transfer.apply(this, arguments);
-}
-
-function _transfer() {
-  _transfer = (0, _asyncToGenerator2["default"])(
-  /*#__PURE__*/
-  _regenerator["default"].mark(function _callee4(to, amount) {
-    var memo,
-        extra,
-        tx,
-        _args4 = arguments;
-    return _regenerator["default"].wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            memo = _args4.length > 2 && _args4[2] !== undefined ? _args4[2] : '';
-            extra = _args4.length > 3 && _args4[3] !== undefined ? _args4[3] : null;
-            _context4.next = 4;
-            return this.extension.actions.transfer(to, amount, memo, extra)["catch"](function (reason) {
-              return _webExtensionProtocol.consts.predefinedStatus.UNKNOWN(reason);
-            });
-
-          case 4:
-            tx = _context4.sent;
-
-            if (!(tx instanceof _webExtensionProtocol.types.Status)) {
-              _context4.next = 9;
-              break;
-            }
-
-            return _context4.abrupt("return", new _webExtensionProtocol.types.Result(null, tx));
-
-          case 9:
-            return _context4.abrupt("return", tx);
-
-          case 10:
-          case "end":
-            return _context4.stop();
-        }
-      }
-    }, _callee4, this);
-  }));
-  return _transfer.apply(this, arguments);
-}
-
-function invoke(_x13) {
+function invoke(_x) {
   return _invoke.apply(this, arguments);
 }
 
 function _invoke() {
   _invoke = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
-  _regenerator["default"].mark(function _callee5(methods) {
+  _regenerator["default"].mark(function _callee(methods) {
     var _this$extension$actio;
 
     var _len,
         args,
         _key,
-        _args5 = arguments;
+        _args = arguments;
 
-    return _regenerator["default"].wrap(function _callee5$(_context5) {
+    return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
-        switch (_context5.prev = _context5.next) {
+        switch (_context.prev = _context.next) {
           case 0:
             if (!(typeof this.extension.actions.invoke !== 'function')) {
-              _context5.next = 2;
+              _context.next = 2;
               break;
             }
 
-            return _context5.abrupt("return", _webExtensionProtocol.consts.predefinedStatus.NOT_SUPPORT());
+            return _context.abrupt("return", _webExtensionProtocol.consts.predefinedStatus.NOT_SUPPORT());
 
           case 2:
-            for (_len = _args5.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-              args[_key - 1] = _args5[_key];
+            for (_len = _args.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+              args[_key - 1] = _args[_key];
             }
 
-            _context5.next = 5;
+            _context.next = 5;
             return (_this$extension$actio = this.extension.actions).invoke.apply(_this$extension$actio, [methods].concat(args));
 
           case 5:
-            return _context5.abrupt("return", _context5.sent);
+            return _context.abrupt("return", _context.sent);
 
           case 6:
           case "end":
-            return _context5.stop();
+            return _context.stop();
         }
       }
-    }, _callee5, this);
+    }, _callee, this);
   }));
   return _invoke.apply(this, arguments);
 }
 
-function transferToken(_x14, _x15, _x16, _x17) {
-  return _transferToken.apply(this, arguments);
-}
-
-function _transferToken() {
-  _transferToken = (0, _asyncToGenerator2["default"])(
-  /*#__PURE__*/
-  _regenerator["default"].mark(function _callee6(wrapper, to, amount, extra) {
-    return _regenerator["default"].wrap(function _callee6$(_context6) {
-      while (1) {
-        switch (_context6.prev = _context6.next) {
-          case 0:
-            _context6.next = 2;
-            return this.extension.actions.transferToken(wrapper, to, amount, extra);
-
-          case 2:
-            return _context6.abrupt("return", _context6.sent);
-
-          case 3:
-          case "end":
-            return _context6.stop();
-        }
-      }
-    }, _callee6, this);
-  }));
-  return _transferToken.apply(this, arguments);
-}
-
-function getAccount() {
-  return _getAccount.apply(this, arguments);
-}
-
-function _getAccount() {
-  _getAccount = (0, _asyncToGenerator2["default"])(
-  /*#__PURE__*/
-  _regenerator["default"].mark(function _callee7() {
-    return _regenerator["default"].wrap(function _callee7$(_context7) {
-      while (1) {
-        switch (_context7.prev = _context7.next) {
-          case 0:
-            _context7.next = 2;
-            return this.extension.actions.getAccount();
-
-          case 2:
-            return _context7.abrupt("return", _context7.sent);
-
-          case 3:
-          case "end":
-            return _context7.stop();
-        }
-      }
-    }, _callee7, this);
-  }));
-  return _getAccount.apply(this, arguments);
-}
-
-function getTransaction(_x18) {
-  return _getTransaction.apply(this, arguments);
-}
-
-function _getTransaction() {
-  _getTransaction = (0, _asyncToGenerator2["default"])(
-  /*#__PURE__*/
-  _regenerator["default"].mark(function _callee8(txHash) {
-    return _regenerator["default"].wrap(function _callee8$(_context8) {
-      while (1) {
-        switch (_context8.prev = _context8.next) {
-          case 0:
-            _context8.next = 2;
-            return this.extension.actions.getTransaction(txHash);
-
-          case 2:
-            return _context8.abrupt("return", _context8.sent);
-
-          case 3:
-          case "end":
-            return _context8.stop();
-        }
-      }
-    }, _callee8, this);
-  }));
-  return _getTransaction.apply(this, arguments);
-}
-
-function getTokenInfo(_x19, _x20) {
-  return _getTokenInfo.apply(this, arguments);
-}
-
-function _getTokenInfo() {
-  _getTokenInfo = (0, _asyncToGenerator2["default"])(
-  /*#__PURE__*/
-  _regenerator["default"].mark(function _callee9(tokenAddress, abi) {
-    return _regenerator["default"].wrap(function _callee9$(_context9) {
-      while (1) {
-        switch (_context9.prev = _context9.next) {
-          case 0:
-            _context9.next = 2;
-            return this.extension.actions.getTokenInfo(tokenAddress, abi);
-
-          case 2:
-            return _context9.abrupt("return", _context9.sent);
-
-          case 3:
-          case "end":
-            return _context9.stop();
-        }
-      }
-    }, _callee9, this);
-  }));
-  return _getTokenInfo.apply(this, arguments);
+function getAction(name) {
+  return this.extension.actions[name] || this.extension.contractCaller[name];
 }
 
 var _default = {
-  offChainCall: offChainCall,
-  onChainCall: onChainCall,
-  loadContract: loadContract,
-  transfer: transfer,
-  transferToken: transferToken,
-  getAccount: getAccount,
-  getTransaction: getTransaction,
-  getTokenInfo: getTokenInfo,
+  getAction: getAction,
   invoke: invoke
 };
 exports["default"] = _default;
@@ -7065,51 +6820,84 @@ var load =
 function () {
   var _ref = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
-  _regenerator["default"].mark(function _callee5(extension, extra) {
-    var proxy, checkInstall, loginCheck;
-    return _regenerator["default"].wrap(function _callee5$(_context5) {
+  _regenerator["default"].mark(function _callee6(extension, extra) {
+    var orgProxy, checkInstall, loginCheck, proxy;
+    return _regenerator["default"].wrap(function _callee6$(_context6) {
       while (1) {
-        switch (_context5.prev = _context5.next) {
+        switch (_context6.prev = _context6.next) {
           case 0:
-            proxy = Object.assign(new ExtensionProxy(), _actions["default"]);
-            _context5.next = 3;
+            orgProxy = Object.assign(new ExtensionProxy(), _actions["default"]);
+            _context6.next = 3;
             return extension.checker.installed();
 
           case 3:
-            checkInstall = _context5.sent;
+            checkInstall = _context6.sent;
 
             if (checkInstall.data) {
-              _context5.next = 7;
+              _context6.next = 7;
               break;
             }
 
-            proxy.status = checkInstall;
-            return _context5.abrupt("return", new _webExtensionProtocol.types.Result(proxy, checkInstall.status));
+            orgProxy.status = checkInstall;
+            return _context6.abrupt("return", new _webExtensionProtocol.types.Result(orgProxy, checkInstall.status));
 
           case 7:
-            proxy.extension = extension;
-            proxy.extension.load(extra);
-            _context5.next = 11;
-            return proxy.isLogin();
+            orgProxy.extension = extension;
+            orgProxy.extension.load(extra);
+            _context6.next = 11;
+            return orgProxy.isLogin();
 
           case 11:
-            loginCheck = _context5.sent;
+            loginCheck = _context6.sent;
 
             if (loginCheck.data) {
-              proxy.link();
-              proxy.status = _webExtensionProtocol.consts.predefinedStatus.SUCCESS(extension);
+              orgProxy.link();
+              orgProxy.status = _webExtensionProtocol.consts.predefinedStatus.SUCCESS(extension);
             } else {
-              proxy.status = _webExtensionProtocol.consts.predefinedStatus.NOT_LOGIN(extension);
+              orgProxy.status = _webExtensionProtocol.consts.predefinedStatus.NOT_LOGIN(extension);
             }
 
-            return _context5.abrupt("return", new _webExtensionProtocol.types.Result(proxy, proxy.status));
+            proxy = new Proxy(orgProxy, {
+              get: function get(target, name) {
+                var action = orgProxy.getAction(name);
 
-          case 14:
+                if ('function' === typeof action) {
+                  return action;
+                } else {
+                  if ('then' === name || undefined !== target[name]) {
+                    return target[name];
+                  } else {
+                    return (
+                      /*#__PURE__*/
+                      (0, _asyncToGenerator2["default"])(
+                      /*#__PURE__*/
+                      _regenerator["default"].mark(function _callee5() {
+                        return _regenerator["default"].wrap(function _callee5$(_context5) {
+                          while (1) {
+                            switch (_context5.prev = _context5.next) {
+                              case 0:
+                                return _context5.abrupt("return", _webExtensionProtocol.consts.predefinedStatus.NOT_SUPPORT(name));
+
+                              case 1:
+                              case "end":
+                                return _context5.stop();
+                            }
+                          }
+                        }, _callee5);
+                      })).bind(target)
+                    );
+                  }
+                }
+              }
+            });
+            return _context6.abrupt("return", new _webExtensionProtocol.types.Result(proxy, orgProxy.status));
+
+          case 15:
           case "end":
-            return _context5.stop();
+            return _context6.stop();
         }
       }
-    }, _callee5);
+    }, _callee6);
   }));
 
   return function load(_x2, _x3) {
